@@ -49,7 +49,6 @@ async def on_message(message):
 
 if __name__ == '__main__':
   token = os.environ.get('DISCORD_TOKEN')
-  print(token)
 
   if token is not None:
     client.run(token)

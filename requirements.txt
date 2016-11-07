@@ -1,7 +1,7 @@
 aiohttp==0.21.6
 cffi==1.7.0
 chardet==2.3.0
--e git+https://github.com/Rapptz/discord.py@async#egg=discord.py
+-e git+https://github.com/Rapptz/discord.py@master#egg=discord.py
 html2text==2016.5.29
 psycopg2==2.6.1
 pycparser==2.14

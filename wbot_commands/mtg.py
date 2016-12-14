@@ -81,7 +81,7 @@ class MTGCommand(wbot_commands.command.Command):
         #    if v:
         #        query_builder = query_builder.where(k=v)
 
-        cards = query_builder.where(pagesize=3).all()
+        cards = query_builder.where(page=1).where(pagesize=3).all()
 
         if not cards:
             return 'error retrieving data'

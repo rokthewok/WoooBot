@@ -40,6 +40,7 @@ class MTGCommand(wbot_commands.command.Command):
         result = vars(parser.parse_args(query))
         if not result['set'] and not result['name']:
             raise ArgumentParserError(parser.format_help())
+        return result
 
     @staticmethod
     def emojify_cost(mana_cost):

@@ -4,22 +4,23 @@ import abc
 
 
 class Command(object):
-  """An abstract base class representing a Discord bot command
+    """An abstract base class representing a Discord bot command
 
-  Requires the method `do (self, message, subreddit)` to be implemented
-  by all inheriting classes. Also requires `help` data to be passed
-  to Command at creation time.
-  """
-  __metaclass__ = abc.ABCMeta
-  def __init__(self, **kwargs):
-    self._help = kwargs['help']
+    Requires the method `do (self, message, subreddit)` to be implemented
+    by all inheriting classes. Also requires `help` data to be passed
+    to Command at creation time.
+    """
+    __metaclass__ = abc.ABCMeta
 
-  @property
-  def help(self):
-    """Retrieve the help data property of this command."""
-    return self._help
+    def __init__(self, **kwargs):
+        self._help = kwargs['help']
 
-  @abc.abstractmethod
-  def do(self, message, subreddit):
-    """Abstract method, to be implemented by child classes."""
-    pass
+    @property
+    def help(self):
+        """Retrieve the help data property of this command."""
+        return self._help
+
+    @abc.abstractmethod
+    def do(self, message, subreddit):
+        """Abstract method, to be implemented by child classes."""
+        pass

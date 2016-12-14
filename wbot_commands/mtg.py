@@ -44,6 +44,8 @@ class MTGCommand(wbot_commands.command.Command):
 
     @staticmethod
     def emojify_cost(mana_cost):
+        if not mana_cost:
+            return None
         for k, v in {'{W}': '<:whitemana:258399822858551306>',
                      '{R}': '<:redmana:258399822808088596>',
                      '{B}': '<:blackmana:258399822170554378>',
@@ -84,6 +86,6 @@ class MTGCommand(wbot_commands.command.Command):
         if not cards:
             return 'error retrieving data'
 
-        result = ''.join(['**{}**: {}\n\n{}'.format(c.name,
-                  MTGCommand.emojify_cost(c.mana_cost), c.text) for c in cards])
+        result = '\n----------------\n'.join(['**{}**: {}\n\n{}\n\nset: {}'.format(c.name,
+                  MTGCommand.emojify_cost(c.mana_cost), c.text, c.set) for c in cards])
         return result

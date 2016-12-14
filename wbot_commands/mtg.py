@@ -86,6 +86,11 @@ class MTGCommand(wbot_commands.command.Command):
         if not cards:
             return 'error retrieving data'
 
+        # mtgsdk is broken and will query for the max # cards possible,
+        # regardless of page size/page setting
+        if len(cards) > 5:
+            cards = cards[:4]
+
         result = '\n----------------\n'.join(['**{}**: {}\n\n{}\n\nset: {}'.format(c.name,
                   MTGCommand.emojify_cost(c.mana_cost), c.text, c.set) for c in cards])
         return result

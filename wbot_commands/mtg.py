@@ -87,5 +87,6 @@ class MTGCommand(wbot_commands.command.Command):
             return 'error retrieving data'
 
         result = '\n----------------\n'.join(['**{}**: {}\n\n{}\n{}\n\nset: {}'.format(c.name,
-                  MTGCommand.emojify(c.mana_cost), c.type, emojify(c.text), c.set) for c in cards])
+                  MTGCommand.emojify(c.mana_cost), c.type,
+                  MTGCommand.emojify(c.text), c.set) for c in cards])
         return result

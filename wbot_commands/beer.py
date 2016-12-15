@@ -79,20 +79,20 @@ class BeerCommand(wbot_commands.command.Command):
         if not breweries:
             return ('**{name}**\nStyle: {style}\nABV: {abv}%\n' +
                     'Brewery: {brewery}\n\n*{description}*\n{label}') \
-                                       .format(label=beer[0]['labels']['medium'],
-                                               name=beer[0]['name'],
-                                               style=beer[0]['style']['name'],
-                                               abv=beer[0]['abv'],
-                                               brewery=beer[0]['breweries'][0]['name'],
-                                               description=beer[0]['description'])
+                               .format(label=beer[0].get('labels', {}).get('medium', '??'),
+                                       name=beer[0].get('name', ''),
+                                       style=beer[0].get('style', {}).get('name', '??'),
+                                       abv=beer[0].get('abv', '??'),
+                                       brewery=beer[0]['breweries'][0].get('name', '??'),
+                                       description=beer[0].get('description', '??'))
         else:
             return ('**{name}**\nEstablished: {ested}\n\n*{description}*\n{website}') \
-                                       .format(name=breweries[0]['name'],
-                                               ested=breweries[0]['established'],
+                                       .format(name=breweries[0].get('name', '??'),
+                                               ested=breweries[0].get('established', '??'),
                                                #locality=breweries[0]['locations'][0]['locality'],
                                                #region=breweries[0]['locations'][0]['region'],
-                                               description=breweries[0]['description'],
-                                               website=breweries[0]['website'])
+                                               description=breweries[0].get('description', '??'),
+                                               website=breweries[0].get('website', '??'))
 
     def do(self, query):
         """Perform the action described by this command - query an MTG database.

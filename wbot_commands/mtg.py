@@ -1,19 +1,10 @@
 #! /usr/bin/python3
 import discord
-import argparse
 import mtgsdk
 import shlex
+import wbot_commands.argumentparser as argumentparser
 import wbot_commands.command
 
-class ArgumentParserError(Exception):
-    """Custom argparse ArgumentParser exception.
-    """
-
-class ThrowingArgumentParser(argparse.ArgumentParser):
-    """An ArgumentParser that throws instead of printing and exiting.
-    """
-    def error(self, message):
-        raise ArgumentParserError(message)
 
 class MTGCommand(wbot_commands.command.Command):
     """
@@ -30,16 +21,18 @@ class MTGCommand(wbot_commands.command.Command):
     def parse_query_args(query):
         """Parse the given MTG database query
         """
-        parser = ThrowingArgumentParser()
+        parser = argumentparser.ThrowingArgumentParser()
         parser.add_argument('-s', '--set', dest='set', action='store',
-                            help='The set abbreviation, e.g. jud for judgement', type=str)
+                            help='The set abbreviation, e.g. jud for judgement',
+                            type=str)
         parser.add_argument('-n', '--name', dest='name', action='store',
-                            help='The card name or partial name for search.', type=str)
+                            help='The card name or partial name for search.',
+                            type=str)
 
 
         result = vars(parser.parse_args(query))
         if not result['set'] and not result['name']:
-            raise ArgumentParserError(parser.format_help())
+            raise argumentparser.ArgumentParserError(parser.format_help())
         return result
 
     @staticmethod
@@ -74,11 +67,11 @@ class MTGCommand(wbot_commands.command.Command):
         try:
             params = MTGCommand.parse_query_args(shlex.split(query))
             print(params)
-        except ArgumentParserError as e:
+        except argumentparser.ArgumentParserError as e:
             print(e)
-            return '{}'.format(e)
+            return '`{}`'.format(e)
         except Exception as e:
-            print(e.what())
+            print(e)
             return 'something went wrong...'
 
         if not params:

@@ -51,7 +51,18 @@ class MTGCommand(wbot_commands.command.Command):
                      '{B}': '<:blackmana:258399822170554378>',
                      '{U}': '<:bluemana:258399822610956288>',
                      '{G}': '<:greenmana:258399822896300032>',
+                     '{B/G}': '<:bgmana:258755977740812288>',
+                     '{B/R}': '<:brmana:258755977405267970>',
+                     '{G/U}': '<:gumana:258755977317187603>',
+                     '{G/W}': '<:gwmana:258755977749200896>',
+                     '{R/G}': '<:rgmana:258755977812246528>',
+                     '{R/W}': '<:rwmana:258755977300541444>',
+                     '{U/B}': '<:ubmana:258755977740943360>',
+                     '{U/R}': '<:urmana:258755977241690115>',
+                     '{W/B}': '<:wbmana:258755977317318658>',
+                     '{W/U}': '<:wumana:258755979598888960>',
                      '{T}': '<:tap:258399822300708874>'}.items():
+
             mana_cost = mana_cost.replace(k, v)
         print(mana_cost)
         return mana_cost
@@ -76,10 +87,6 @@ class MTGCommand(wbot_commands.command.Command):
         cards = mtgsdk.Card.where(**{k: v for k, v in params.items() if v}) \
                            .where(page=1) \
                            .where(pageSize=3).all()
-        #if params['set']:
-            #query_builder = query_builder.where(set=params['set'])
-        #if params['name']:
-            #query_builder = query_builder.where(name=params['name'])
 
         if not cards:
             return 'error retrieving data'

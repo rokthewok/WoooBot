@@ -79,8 +79,6 @@ class MTGCommand(wbot_commands.command.Command):
         #if params['name']:
             #query_builder = query_builder.where(name=params['name'])
 
-        cards = query_builder.where(page=1).where(pageSize=3).all()
-
         if not cards:
             return 'error retrieving data'
 

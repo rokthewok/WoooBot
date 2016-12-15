@@ -49,7 +49,6 @@ class BeerCommand(wbot_commands.command.Command):
         response = requests.get(''.join([BeerCommand.BASE_URL, 'breweries']),
                                 params=params)
         response.raise_for_status()
-        print(response.text)
         return response.json().get('data', None)
 
     @staticmethod
@@ -64,7 +63,6 @@ class BeerCommand(wbot_commands.command.Command):
         response = requests.get(''.join([BeerCommand.BASE_URL, 'beers']),
                                 params=params)
         response.raise_for_status()
-        print(response.text)
         return response.json().get('data', None)
 
     @staticmethod

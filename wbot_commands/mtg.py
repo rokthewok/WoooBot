@@ -53,7 +53,7 @@ class MTGCommand(wbot_commands.command.Command):
                      '{G}': '<:greenmana:258399822896300032>'}.items():
             mana_cost = mana_cost.replace(k, v)
         print(mana_cost)
-        return mana_cost.replace('{', '').replace('}', '')
+        return mana_cost
 
     def do(self, query):
         """Perform the action described by this command - query an MTG database.

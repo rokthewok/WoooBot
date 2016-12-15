@@ -50,7 +50,8 @@ class MTGCommand(wbot_commands.command.Command):
                      '{R}': '<:redmana:258399822808088596>',
                      '{B}': '<:blackmana:258399822170554378>',
                      '{U}': '<:bluemana:258399822610956288>',
-                     '{G}': '<:greenmana:258399822896300032>'}.items():
+                     '{G}': '<:greenmana:258399822896300032>',
+                     '{T}': '<:tap:258399822300708874>'}.items():
             mana_cost = mana_cost.replace(k, v)
         print(mana_cost)
         return mana_cost
@@ -86,7 +87,9 @@ class MTGCommand(wbot_commands.command.Command):
         if not cards:
             return 'error retrieving data'
 
-        result = '\n----------------\n'.join(['**{}**: {}\n\n{}\n{}\n\nset: {}'.format(c.name,
-                  MTGCommand.emojify(c.mana_cost), c.type,
-                  MTGCommand.emojify(c.text), c.set) for c in cards])
+        result = '\n----------------\n'.join(
+                ['**{name}**: {cost}\n\n*{type}*\n{text}\n\nset: {set}'.format(
+                  name=c.name,
+                  cost=MTGCommand.emojify(c.mana_cost), type=c.type,
+                  text=MTGCommand.emojify(c.text), set=c.set) for c in cards])
         return result

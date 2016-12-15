@@ -3,6 +3,7 @@ import discord
 import shlex
 import requests
 import os
+import difflib
 import wbot_commands.argumentparser as argumentparser
 import wbot_commands.command
 

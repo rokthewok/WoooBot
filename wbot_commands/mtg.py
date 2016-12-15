@@ -73,7 +73,7 @@ class MTGCommand(wbot_commands.command.Command):
         if not params:
             return 'Invalid query'
 
-        cards = mtgsdk.Card.where(**{k: v for k, v in params.items() if v})
+        cards = mtgsdk.Card.where(**{k: v for k, v in params.items() if v}).all()
         #if params['set']:
             #query_builder = query_builder.where(set=params['set'])
         #if params['name']:

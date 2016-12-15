@@ -73,14 +73,11 @@ class MTGCommand(wbot_commands.command.Command):
         if not params:
             return 'Invalid query'
 
-        query_builder = mtgsdk.QueryBuilder(mtgsdk.Card)
-        if params['set']:
-            query_builder = query_builder.where(set=params['set'])
-        if params['name']:
-            query_builder = query_builder.where(name=params['name'])
-        #for k, v in params.items():
-        #    if v:
-        #        query_builder = query_builder.where(k=v)
+        cards = mtgsdk.Card.where(**{k: v for k, v in params.items() if v})
+        #if params['set']:
+            #query_builder = query_builder.where(set=params['set'])
+        #if params['name']:
+            #query_builder = query_builder.where(name=params['name'])
 
         cards = query_builder.where(page=1).where(pageSize=3).all()
 
@@ -91,5 +88,6 @@ class MTGCommand(wbot_commands.command.Command):
                 ['**{name}**: {cost}\n\n*{type}*\n{text}\n\nset: {set}'.format(
                   name=c.name,
                   cost=MTGCommand.emojify(c.mana_cost), type=c.type,
-                  text=MTGCommand.emojify(c.text), set=c.set) for c in cards])
+                  text=MTGCommand.emojify(c.text if c.text else ''),
+                  set=c.set) for c in cards])
         return result

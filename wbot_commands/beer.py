@@ -67,8 +67,7 @@ class BeerCommand(wbot_commands.command.Command):
         print(response.text)
         return response.json().get('data', None)
 
-    @staticmethod
-    def select_beer_for_brewery(beers, brewery):
+    @staticmethod def select_beer_for_brewery(beers, brewery):
         if not brewery or not beers:
             return beers
         return [b for b in beers
@@ -76,6 +75,7 @@ class BeerCommand(wbot_commands.command.Command):
 
     @staticmethod
     def make_message(breweries, beer):
+        if not breweries and not beer:
         if not breweries:
             return ('**{name}**\nStyle: {style}\nABV: {abv}%\n' +
                     'Brewery: {brewery}\n\n*{description}*\n{label}') \
@@ -122,7 +122,10 @@ class BeerCommand(wbot_commands.command.Command):
         if not params['name']:
             breweries = BeerCommand.get_brewery(api_key, params['brewery'])
 
-        result = BeerCommand.make_message(breweries, beers)
+        if not beer and not breweries:
+            return 'No results found'
+
+        result = BeerCommand.make_message(breweries, beer)
 
         print(result)
         return result

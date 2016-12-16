@@ -85,8 +85,8 @@ class MTGCommand(wbot_commands.command.Command):
             return 'error retrieving data'
 
         result = '\n----------------\n'.join(
-                [('**{name}**: {cost}\n\n*{type}*\n{text}    ' + \
-                 '**P/T:**{pow}/{tough}\n\nset: {set}').format(
+                [('**{name}**: {cost}\n\n*{type}*    **P/T:**{pow}/{tough}'
+                  '\n{text}\n\nset: {set}').format(
                   name=c.name,
                   cost=MTGCommand.emojify(c.mana_cost), type=c.type,
                   pow=(c.power if c.power else 'N'),

@@ -84,7 +84,7 @@ class MTGCommand(wbot_commands.command.Command):
         if not cards:
             return 'error retrieving data'
 
-        result = '\n----------------\n'.join(
+        """result = '\n----------------\n'.join(
                 [('**{name}**: {cost}\n\n*{type}*    **P/T:**{pow}/{tough}'
                   '\n{text}\n\nset: {set}').format(
                   name=c.name,
@@ -92,5 +92,6 @@ class MTGCommand(wbot_commands.command.Command):
                   pow=(c.power if c.power else 'N'),
                   tough=(c.toughness if c.toughness else 'A'),
                   text=MTGCommand.emojify(c.text if c.text else ''),
-                  set=c.set) for c in cards])
+                  set=c.set) for c in cards])"""
+        result = '\n----------------\n'.join((c.image_url for c in cards if c.image_url))
         return result
